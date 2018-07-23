@@ -87,7 +87,7 @@ bool Obj3d::load(std::string filename)
 		}
 	}
 
-	/*glNewList(id, GL_COMPILE);	
+	glNewList(id, GL_COMPILE);	
 	glPushMatrix();
 	glBegin(GL_TRIANGLES);
 	glTranslatef(pos.x, pos.y, pos.z);
@@ -104,13 +104,13 @@ bool Obj3d::load(std::string filename)
 	glEndList();
 
 
-	*/
+	
 	return true;
 }
 
 void Obj3d::Render()
 {
-	/*if (!textureName.empty())
+	if (!textureName.empty())
 	{
 		glEnable(GL_TEXTURE_2D);
 		TextureManager::getInstance()->BindTexture(textureName);
@@ -125,14 +125,15 @@ void Obj3d::Render()
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glPushMatrix();
 	glTranslatef(pos.x, pos.y, pos.z);
+	glRotatef(angle, 0, 1, 0);
 	glScalef(scale, scale, scale);
 		glPushMatrix();
 			glCallList(id);
 		glPopMatrix();
 		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);*/
+		glDisable(GL_TEXTURE_2D);
 
-	if (!textureName.empty())
+	/*if (!textureName.empty())
 	{
 		glEnable(GL_TEXTURE_2D);
 		TextureManager::getInstance()->BindTexture(textureName);
@@ -163,7 +164,7 @@ void Obj3d::Render()
 
 	glPopMatrix();
 
-	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_TEXTURE_2D);*/
 }
 
 void Obj3d::Update()
