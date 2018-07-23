@@ -289,6 +289,12 @@ void LoadObjects()
 	Mebel->textureName = "Biurko";
 	scene.AddObject(Mebel);
 	TextureManager::getInstance()->LoadTexture("Biurko", "../Resources/Textures/Meble/Biurko.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
+
+	Mebel = new Obj3d(vec3(2, 0, 0.5), vec3(0, 0, 0), 0.f, 1);
+	Mebel->load("../Resources/Models/Meble/LozkoP.obj");
+	Mebel->textureName = "LuzkoP";
+	scene.AddObject(Mebel);
+	TextureManager::getInstance()->LoadTexture("LuzkoP", "../Resources/Textures/Meble/LuzkoP.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 }
 void LoadColliders()
 {
