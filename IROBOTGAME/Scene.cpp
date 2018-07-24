@@ -24,7 +24,10 @@ void Scene::AddCollider(Collider* object)
 {
 	colliders.push_back(object);
 }
-
+void Scene::AddTrash(TrashGen* smiec)
+{
+	smieci.push_back(smiec);
+}
 
 void Scene::Render()
 {
@@ -32,7 +35,11 @@ void Scene::Render()
 		sceneObjects[i]->Render();
 	for (unsigned int i = 0; i < colliders.size(); i++)
 		colliders[i]->Render();
-}
+	for (size_t i=0; i <smieci.size(); i++)
+	{
+		smieci[i]->Render();
+	}
+}	
 
 void Scene::Update()
 {

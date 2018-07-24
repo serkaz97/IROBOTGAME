@@ -14,6 +14,7 @@
 #include <tchar.h>
 #include <iostream>
 #include <vector>
+#include <deque>
 #include <GL/freeglut.h>
 #include "FreeImage.h"
 
@@ -26,7 +27,7 @@
 #include "TextureManager.h"
 #include "SceneObject.h"
 #include "Collider.h"
-//#include "LineCollider.h"
+#include "TrashGen.h"
 #include "Scene.h"
 #include "Obj3d.h"
 #include "Player.h"

@@ -11,6 +11,7 @@ public:
 	vec4 getCords() { return vec4(0, 0, 0, 0); }
 	float radius = 0.6;
 	vec3 dir;
+	unsigned int points;
 	float speed;
 	float befcolx;
 	float befcolz;
@@ -19,6 +20,7 @@ public:
 	void CheckCollision() {};
 	bool flyingMode;
 	bool collide;
+	
 
 	Obj3d *Irobot;
 };

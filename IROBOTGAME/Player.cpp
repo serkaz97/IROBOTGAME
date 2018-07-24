@@ -13,7 +13,7 @@ Player::Player()
 	dir.x = 0.0f;
 	dir.y = 0.0f;
 	dir.z = -1.0f;
-
+	points = 0;
 	speed = .05f;
 
 	velocity_horizontal = 0;

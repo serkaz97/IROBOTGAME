@@ -16,6 +16,8 @@ void PointMap();
 void LoadObjects();
 void LoadColliders();
 void checkCollisions();
+void gainPoint();
+void trashGen(float x_min, float x_max, float y_min, float y_max);
 float min(float x, float y);
 float max(float x, float y);
 //***********************************************
@@ -250,8 +252,9 @@ void OnTimer(int id) {
 		glutWarpPointer(window_width / 2, window_height / 2);
 	}
 	checkCollisions();
+	gainPoint();
 	scene.Update();
-	
+
 	glutTimerFunc(17, OnTimer, 0);
 }
 static float i, j, k;
@@ -264,7 +267,7 @@ void LoadObjects()
 
 	//Mieszkanie
 	Home = new Obj3d(vec3(0, -2, 0), vec3(1, 1, 1), 0.f, 1.f);
-	Home->load("../Resources/Models/Home3.obj");
+	Home->load("../Resources/Models/home2.obj");
 	Home->textureName = "home";
 	scene.AddObject(Home);
 	TextureManager::getInstance()->LoadTexture("home", "../Resources/Textures/home.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
@@ -349,6 +352,8 @@ void LoadObjects()
 
 	TextureManager::getInstance()->LoadTexture("BookS", "../Resources/Textures/Meble/BookS.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 
+	//dodanie œmieci do jednego pokoju
+	//trashGen(-5.15, 5.4, -7.4, 2.4);
 
 }
 void LoadColliders()
@@ -435,7 +440,24 @@ void LoadColliders()
 	Col1 = new Collider(vec4(12.5, 2.0, 12.5, 5.5), vec3(1.f, 0.f, 0.f)); //HA
 	scene.AddCollider(Col1);
 }
-
+void trashGen(float x_min, float x_max, float z_min, float z_max)
+{
+	TrashGen * smiec;
+	float x_pos;
+	float z_pos;
+	int ix_max, iz_max;
+	for (int i = 0; i < 1000; i++)
+	{
+		ix_max = (x_max - x_min) * 1000;
+		iz_max = (z_max - z_min) * 1000;
+		ix_max = rand() % ix_max;
+		iz_max = rand() % iz_max;
+		x_pos = ((float)ix_max) / 1000 + x_min;
+		z_pos = ((float)iz_max) / 1000 + z_min;
+		smiec = new TrashGen(vec3(x_pos, 0.4, z_pos));
+		scene.AddTrash(smiec);
+	}
+}
 void checkCollisions()
 {
 	player->collide = true;
@@ -515,7 +537,26 @@ void checkCollisions()
 
 	}
 }
-	
+void gainPoint()
+{
+	int j = 0;
+	for (deque<TrashGen*>::iterator i = scene.smieci.begin(); i != scene.smieci.end(); i++)
+	{
+		float distance = sqrt(((scene.smieci[j]->pos.x - player->pos.x)*(scene.smieci[j]->pos.x - player->pos.x)) +
+			((scene.smieci[j]->pos.z - player->pos.z)*(scene.smieci[j]->pos.z - player->pos.z)));
+		if (distance < player->radius)
+		{
+			player->points++;
+			cout << player->points << endl;
+			if (i != scene.smieci.end()||i!=scene.smieci.begin())
+			{
+				i=scene.smieci.erase(i);
+				break;
+			}
+		}
+		j++;
+	}
+}
 
 float min(float x, float y)
 {
