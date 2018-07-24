@@ -55,15 +55,18 @@ int main(int argc, char* argv[])
 	glClearColor(0.1f, 0.2f, 0.3f, 0.0);
 	//*****************************
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glFrontFace(GL_CCW); 
-	glCullFace(GL_BACK); 
+
 	//*****************************
 
 	float gl_amb[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, gl_amb);
+
 	glEnable(GL_LIGHTING);
 	glShadeModel(GL_SMOOTH);
+
+	glEnable(GL_CULL_FACE);
+	glFrontFace(GL_CCW);
+	glCullFace(GL_BACK);
 
 	glutSetCursor(GLUT_CURSOR_NONE);
 	captureMouse = true;
@@ -84,6 +87,13 @@ void OnRender()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glTranslatef(0, -1, -2);
+
+	gluLookAt(
+		player->pos.x, player->pos.y, player->pos.z,
+		player->pos.x + player->dir.x, player->pos.y + player->dir.y, player->pos.z + player->dir.z,
+		0.0f, 1.0f, 0.0f
+	);
+
 	{
 		GLfloat l0_ambient[] = { 0.2f, 0.2f, 0.2f };
 		GLfloat l0_diffuse[] = { 1.0f, 1.0f, 1.0 };
@@ -96,7 +106,7 @@ void OnRender()
 		glLightfv(GL_LIGHT0, GL_SPECULAR, l0_specular);
 		glLightfv(GL_LIGHT0, GL_POSITION, l0_position);
 		glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0);
-		glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.02);
+		glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.2);
 		glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0);
 	}
 	
@@ -112,16 +122,42 @@ void OnRender()
 		glLightfv(GL_LIGHT1, GL_SPECULAR, l0_specular);
 		glLightfv(GL_LIGHT1, GL_POSITION, l0_position);
 		glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0);
-		glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.02);
+		glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 2);
 		glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0);
 
 	}
+	{
+		GLfloat l0_ambient[] = { 0.2f, 0.2f, 0.2f };
+		GLfloat l0_diffuse[] = { 1.0f, 1.0f, 1.0 };
+		GLfloat l0_specular[] = { 0.5f, 0.5f, 0.5f };
+		GLfloat l0_position[] = { 20, 3,-2., 1.0f };
+
+		glEnable(GL_LIGHT2);
+		glLightfv(GL_LIGHT2, GL_AMBIENT, l0_ambient);
+		glLightfv(GL_LIGHT2, GL_DIFFUSE, l0_diffuse);
+		glLightfv(GL_LIGHT2, GL_SPECULAR, l0_specular);
+		glLightfv(GL_LIGHT2, GL_POSITION, l0_position);
+		glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, 0);
+		glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 0.2);
+		glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, 0.0);
+	}
+	{
+		GLfloat l0_ambient[] = { 0.2f, 0.2f, 0.2f };
+		GLfloat l0_diffuse[] = { 1.0f, 1.0f, 1.0 };
+		GLfloat l0_specular[] = { 0.5f, 0.5f, 0.5f };
+		GLfloat l0_position[] = { -5.6, 3,-2., 1.0f };
+
+		glEnable(GL_LIGHT3);
+		glLightfv(GL_LIGHT3, GL_AMBIENT, l0_ambient);
+		glLightfv(GL_LIGHT3, GL_DIFFUSE, l0_diffuse);
+		glLightfv(GL_LIGHT3, GL_SPECULAR, l0_specular);
+		glLightfv(GL_LIGHT3, GL_POSITION, l0_position);
+		glLightf(GL_LIGHT3, GL_CONSTANT_ATTENUATION, 0);
+		glLightf(GL_LIGHT3, GL_LINEAR_ATTENUATION, 0.2);
+		glLightf(GL_LIGHT3, GL_QUADRATIC_ATTENUATION, 0.0);
+	}
 	
-	gluLookAt(
-		player->pos.x, player->pos.y, player->pos.z,
-		player->pos.x + player->dir.x, player->pos.y + player->dir.y, player->pos.z + player->dir.z,
-		0.0f, 1.0f, 0.0f
-	);
+
 	scene.Render();
 	glFlush();
 	glutSwapBuffers();
@@ -295,6 +331,25 @@ void LoadObjects()
 	Mebel->textureName = "Komoda";
 	scene.AddObject(Mebel);
 	TextureManager::getInstance()->LoadTexture("Komoda", "../Resources/Textures/Meble/Komoda.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
+
+	Mebel = new Obj3d(vec3(0.3, 0.05, -7.5), vec3(1, 1, 1), 0.f, 1);
+	Mebel->load("../Resources/Models/Meble/BookS.obj");
+	Mebel->textureName = "BookS";
+	scene.AddObject(Mebel);
+
+	Mebel = new Obj3d(vec3(0.3, 0.65, -7.5), vec3(1, 1, 1), 0.f, 1);
+	Mebel->load("../Resources/Models/Meble/BookS.obj");
+	Mebel->textureName = "BookS";
+	scene.AddObject(Mebel);
+
+	Mebel = new Obj3d(vec3(0.3, 1.23, -7.5), vec3(1, 1, 1), 0.f, 1);
+	Mebel->load("../Resources/Models/Meble/BookS.obj");
+	Mebel->textureName = "BookS";
+	scene.AddObject(Mebel);
+
+	TextureManager::getInstance()->LoadTexture("BookS", "../Resources/Textures/Meble/BookS.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
+
+
 }
 void LoadColliders()
 {
