@@ -40,14 +40,12 @@ int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
 	glutInitWindowPosition(100, 100);
-	glutInitWindowSize(640,360);
+	glutInitWindowSize(800,600);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 
 	glutCreateWindow("IROBOT SIM");
 
 	//***************************
-	glutDisplayFunc(OnRender);
-	glutReshapeFunc(OnReshape);
 	glutDisplayFunc(OnRender);
 	glutReshapeFunc(OnReshape);
 	glutKeyboardFunc(OnKeyPress);
@@ -85,12 +83,12 @@ void OnRender()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glTranslatef(0, 0, -2);
+	glTranslatef(0, -1, -2);
 	{
 		GLfloat l0_ambient[] = { 0.2f, 0.2f, 0.2f };
 		GLfloat l0_diffuse[] = { 1.0f, 1.0f, 1.0 };
 		GLfloat l0_specular[] = { 0.5f, 0.5f, 0.5f };
-		GLfloat l0_position[] = {1., 2.5,-3., 1.0f };
+		GLfloat l0_position[] = { -5.6, 0.5,-2., 1.0f };
 
 		glEnable(GL_LIGHT0);
 		glLightfv(GL_LIGHT0, GL_AMBIENT, l0_ambient);
@@ -98,19 +96,15 @@ void OnRender()
 		glLightfv(GL_LIGHT0, GL_SPECULAR, l0_specular);
 		glLightfv(GL_LIGHT0, GL_POSITION, l0_position);
 		glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0);
-		glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.2);
-		glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0);
+		glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.02);
+		glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0);
 	}
 	
-		GLfloat l1_ambient[] = { 1.f,1.f, 1.f };
-		GLfloat l1_diffuse[] = { 1.f, 1.f,1.f };
-		GLfloat l1_specular[] = { 0.2f, 0.2f, 0.2f };
-		GLfloat l1_position[] = { player->pos.x, player->pos.y+2, player->pos.z, 0.0f };
-
+	{
 		GLfloat l0_ambient[] = { 0.0f, 0.0f, 0.0f };
 		GLfloat l0_diffuse[] = { 0.5f, 0.5f, 0.5 };
 		GLfloat l0_specular[] = { 0.2f, 0.2f, 0.2f };
-		GLfloat l0_position[] = { -player->dir.x, -player->dir.y, -player->dir.z+1, 0.0f };
+		GLfloat l0_position[] = { -player->dir.x, player->dir.y, -player->dir.z, 0.0f };
 
 		glEnable(GL_LIGHT1);
 		glLightfv(GL_LIGHT1, GL_AMBIENT, l0_ambient);
@@ -118,10 +112,10 @@ void OnRender()
 		glLightfv(GL_LIGHT1, GL_SPECULAR, l0_specular);
 		glLightfv(GL_LIGHT1, GL_POSITION, l0_position);
 		glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0);
-		glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.5);
+		glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.02);
 		glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0);
-	
 
+	}
 	
 	gluLookAt(
 		player->pos.x, player->pos.y, player->pos.z,
@@ -241,60 +235,66 @@ void LoadObjects()
 
 	//Futryny
 	Obj3d* Futryna;
-	Futryna = new Obj3d(vec3(6.25, 0.01, -4), vec3(0, 0, 0), 0.f, 1.f);
+	Futryna = new Obj3d(vec3(6.25, 0.01, -4), vec3(1, 1, 1), 0.f, 1.f);
 	Futryna->load("../Resources/Models/futryna.obj");
 	Futryna->textureName = "futryna";
 	scene.AddObject(Futryna);
 
-	Futryna = new Obj3d(vec3(10, 0.01, -10.75), vec3(0, 0, 0), 90.f, 1.f);
+	Futryna = new Obj3d(vec3(10, 0.01, -10.75), vec3(1, 1, 1), 90.f, 1.f);
 	Futryna->load("../Resources/Models/futryna.obj");
 	Futryna->textureName = "futryna";
 	scene.AddObject(Futryna);
 
-	Futryna = new Obj3d(vec3(10, 0.01, 5.75), vec3(0, 0, 0), 90.f, 1.f);
+	Futryna = new Obj3d(vec3(10, 0.01, 5.75), vec3(1, 1, 1), 90.f, 1.f);
 	Futryna->load("../Resources/Models/futryna.obj");
 	Futryna->textureName = "futryna";
 	scene.AddObject(Futryna);
 
-	Futryna = new Obj3d(vec3(12.75, 0.01, 1), vec3(0, 0, 0), 0.f, 1.f);
+	Futryna = new Obj3d(vec3(12.75, 0.01, 1), vec3(1, 1, 1), 0.f, 1.f);
 	Futryna->load("../Resources/Models/futryna.obj");
 	Futryna->textureName = "futryna";
 	scene.AddObject(Futryna);
 
-	Futryna = new Obj3d(vec3(12.75, 0.01, -5), vec3(0, 0, 0), 0.f, 1.f);
+	Futryna = new Obj3d(vec3(12.75, 0.01, -5), vec3(1, 1, 1), 0.f, 1.f);
 	Futryna->load("../Resources/Models/futryna.obj");
 	Futryna->textureName = "futryna";
 	scene.AddObject(Futryna);
 	
-	Obj3d* Sufit = new Obj3d(vec3(8,5,-2), vec3(0,0,0), 0.f, 1.5f);
+	Obj3d* Sufit = new Obj3d(vec3(8,5,-2), vec3(1, 1, 1), 0.f, 1.5f);
 	Sufit->load("../Resources/Models/sufit.obj");
 	Sufit->textureName = "sufit";
 	scene.AddObject(Sufit);
 
-	Obj3d* Mebel = new Obj3d(vec3(0.20, 0, -7.5), vec3(0, 0, 0), 0.f, 1);
+	Obj3d* Mebel = new Obj3d(vec3(0.20, 0, -7.5), vec3(1, 1, 1), 0.f, 1);
 	Mebel->load("../Resources/Models/Meble/Biblioteczka.obj");
 	Mebel->textureName = "biblioteczka";
 	scene.AddObject(Mebel);
 	TextureManager::getInstance()->LoadTexture("futryna", "../Resources/Textures/futryna.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 	TextureManager::getInstance()->LoadTexture("sufit", "../Resources/Textures/Sufit.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 	TextureManager::getInstance()->LoadTexture("biblioteczka", "../Resources/Textures/Meble/Biblioteczka.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
-	Mebel = new Obj3d(vec3(3.6, 0, -7), vec3(0, 0, 0), 0.f, 1);
+	Mebel = new Obj3d(vec3(3.6, 0, -7), vec3(1, 1, 1), 0.f, 1);
 	Mebel->load("../Resources/Models/Meble/DuzaSzafa.obj");
 	Mebel->textureName = "duzaSzafa";
 	scene.AddObject(Mebel);
 	TextureManager::getInstance()->LoadTexture("duzaSzafa", "../Resources/Textures/Meble/DuzaSzafa.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 
-	Mebel = new Obj3d(vec3(-4.75, 0, -2.75), vec3(0, 0, 0), 0.f, 1);
+	Mebel = new Obj3d(vec3(-4.75, 0, -2.75), vec3(1, 1, 1), 0.f, 1);
 	Mebel->load("../Resources/Models/Meble/Biurko.obj");
 	Mebel->textureName = "Biurko";
 	scene.AddObject(Mebel);
 	TextureManager::getInstance()->LoadTexture("Biurko", "../Resources/Textures/Meble/Biurko.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 
-	Mebel = new Obj3d(vec3(2, 0, 0.5), vec3(0, 0, 0), 0.f, 1);
+	Mebel = new Obj3d(vec3(2.8, 0, 1.8), vec3(1, 1, 1), 0.f, 1);
 	Mebel->load("../Resources/Models/Meble/LozkoP.obj");
 	Mebel->textureName = "LuzkoP";
 	scene.AddObject(Mebel);
 	TextureManager::getInstance()->LoadTexture("LuzkoP", "../Resources/Textures/Meble/LuzkoP.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
+
+	Mebel = new Obj3d(vec3(-1.5, 0, 2.2), vec3(1, 1, 1), 0.f, 1);
+	Mebel->load("../Resources/Models/Meble/Komoda.obj");
+	Mebel->textureName = "Komoda";
+	scene.AddObject(Mebel);
+	TextureManager::getInstance()->LoadTexture("Komoda", "../Resources/Textures/Meble/Komoda.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 }
 void LoadColliders()
 {
@@ -383,7 +383,7 @@ void LoadColliders()
 
 void checkCollisions()
 {
-	player->collide = false;
+	player->collide = true;
 	if (player->collide == true)
 	{
 		clock_t begin = clock();
@@ -398,25 +398,21 @@ void checkCollisions()
 				float pd2 = sqrt(((player->pos.x - lineCords.x2)*(player->pos.x - lineCords.x2)) + ((player->pos.z - lineCords.z2)*(player->pos.z - lineCords.z2)));
 				if (lineCords.x1 != lineCords.x2 && lineCords.z1 != lineCords.z2)
 				{
-					//sprawdzamy odleg³oœæ od z d
 					float d = abs(scene.colliders[i]->A*player->pos.x + scene.colliders[i]->B*player->pos.z + scene.colliders[i]->C) / sqrt(scene.colliders[i]->A*scene.colliders[i]->A + scene.colliders[i]->B*scene.colliders[i]->B);
 					if (d <= player->radius &&
 						player->pos.x >= min(lineCords.x1, lineCords.x2) - 0.25 && player->pos.x <= max(lineCords.x1, lineCords.x2) + 0.25
 						&& player->pos.z >= min(lineCords.z1, lineCords.z2) - 0.25 && player->pos.z <= max(lineCords.z1, lineCords.z2) + 0.25)
 					{
-						//cout << "COLLISION WITH LINE DETECTED" << endl;
 						player->pos.x = scene.colliders[i]->befcolx;
 						player->pos.z = scene.colliders[i]->befcolz;
 					}
 					else if (pd1 < player->radius || pd2 < player->radius)
 					{
-						//cout << "COLLISION WITH POINT DETECTED" << endl;
 						player->pos.x = scene.colliders[i]->befcolx;
 						player->pos.z = scene.colliders[i]->befcolz;
 					}
 					else
 					{
-						//cout << "AKTUALIZACJA POZYCJI BEZ KOLIZJI" << endl;
 						scene.colliders[i]->befcolx = player->pos.x;
 						scene.colliders[i]->befcolz = player->pos.z;
 					}
@@ -425,19 +421,16 @@ void checkCollisions()
 				{
 					if (abs(player->pos.x - lineCords.x1) <= player->radius && player->pos.z >= min(lineCords.z1, lineCords.z2) && player->pos.z <= max(lineCords.z1, lineCords.z2))
 					{
-						//cout << "KOLIZJA Z PROSTOPAD£¥ DO OSI X" << endl;
 						player->pos.x = scene.colliders[i]->befcolx;
 						player->pos.z = scene.colliders[i]->befcolz;
 					}
 					else if (pd1 < player->radius || pd2 < player->radius)
 					{
-						//cout << "COLLISION WITH POINT DETECTED" << endl;
 						player->pos.x = scene.colliders[i]->befcolx;
 						player->pos.z = scene.colliders[i]->befcolz;
 					}
 					else
 					{
-						//cout << "AKTUALIZACJA POZYCJI BEZ KOLIZJI" << endl;
 						scene.colliders[i]->befcolx = player->pos.x;
 						scene.colliders[i]->befcolz = player->pos.z;
 					}
@@ -446,19 +439,16 @@ void checkCollisions()
 				{
 					if (abs(player->pos.z - lineCords.z1) <= player->radius && player->pos.x >= min(lineCords.x1, lineCords.x2) && player->pos.x <= max(lineCords.x1, lineCords.x2))
 					{
-						//cout << "KOLIZJA Z PROSTOPAD£¥ DO OSI Z" << endl;
 						player->pos.x = scene.colliders[i]->befcolx;
 						player->pos.z = scene.colliders[i]->befcolz;
 					}
 					else if (pd1 < player->radius || pd2 < player->radius)
 					{
-						//cout << "COLLISION WITH POINT DETECTED" << endl;
 						player->pos.x = scene.colliders[i]->befcolx;
 						player->pos.z = scene.colliders[i]->befcolz;
 					}
 					else
 					{
-						//cout << "AKTUALIZACJA POZYCJI BEZ KOLIZJI" << endl;
 						scene.colliders[i]->befcolx = player->pos.x;
 						scene.colliders[i]->befcolz = player->pos.z;
 					}
