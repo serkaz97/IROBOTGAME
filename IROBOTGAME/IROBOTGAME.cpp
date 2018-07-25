@@ -12,7 +12,6 @@ void OnKeyDown(unsigned char, int, int);
 void OnKeyUp(unsigned char, int, int);
 void OnTimer(int);
 void OnMouseMove(int, int);
-void PointMap();
 void LoadObjects();
 void LoadColliders();
 void checkCollisions();
@@ -93,8 +92,8 @@ void OnRender()
 	glTranslatef(0, -1, -2);
 	float previousT = T;
 	T = glutGet(GLUT_ELAPSED_TIME);
-	cout << "FPS: " << 1.0f / (T - previousT) * 1000 << endl;
-
+	scene.hud.fps = 1.0f / (T - previousT) * 1000;
+	scene.guiDisplay();
 	gluLookAt(
 		player->pos.x, player->pos.y, player->pos.z,
 		player->pos.x + player->dir.x, player->pos.y + player->dir.y, player->pos.z + player->dir.z,

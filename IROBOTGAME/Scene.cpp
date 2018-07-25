@@ -46,3 +46,70 @@ void Scene::Update()
 	for (unsigned int i = 0; i < sceneObjects.size(); i++)
 		sceneObjects[i]->Update();
 }
+
+void renderBitmapString(float x, float y, char* text) {
+	char *c;
+	glRasterPos3f(x, y, 0);
+	for (c = text; *c != '\0'; c++) {
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c);
+	}
+}
+
+void Scene::guiDisplay()
+{
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glTranslatef(0, 0, -2);
+	gluOrtho2D(0, 100, 0, 100);
+	glDisable(GL_LIGHTING);
+	glDisable(GL_CULL_FACE);
+	glBegin(GL_QUADS);
+	
+	//Wskaüniki baterii
+	//1
+	glColor3f(0, 0.9, 0);
+	glVertex2f(3, 97);
+	glVertex2f(3, 93);
+	glVertex2f(5, 93);
+	glVertex2f(5, 97);
+	//2
+	glVertex2f(6, 97);
+	glVertex2f(6, 93);
+	glVertex2f(8, 93);
+	glVertex2f(8, 97);
+	//3
+	glVertex2f(9, 97);
+	glVertex2f(9, 93);
+	glVertex2f(11, 93);
+	glVertex2f(11, 97);
+	//4
+	glVertex2f(12, 97);
+	glVertex2f(12, 93);
+	glVertex2f(14, 93);
+	glVertex2f(14, 97);
+
+	//bateria t≥o
+	glColor3f(0, 0.1, 0);
+	glVertex2f(1, 98);
+	glVertex2f(1, 92);
+	glVertex2f(16, 92);
+	glVertex2f(16, 98);
+
+	glVertex2f(16, 96);
+	glVertex2f(16, 94);
+	glVertex2f(17, 94);
+	glVertex2f(17, 96);
+	glEnd();
+	char text[50];
+	sprintf(text, "%d fps", (int)hud.fps);
+
+	glColor3f(1, 1, 1);
+	renderBitmapString(90, 95, text);
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_CULL_FACE);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+
+}
