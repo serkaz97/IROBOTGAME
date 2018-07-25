@@ -16,10 +16,12 @@ void LoadObjects();
 void LoadColliders();
 void checkCollisions();
 void gainPoint();
+void SquareCollider(vec3 p, float r);
 void trashGen(float x_min, float x_max, float y_min, float y_max);
 float min(float x, float y);
 float max(float x, float y);
 float T = 0;
+int tbef = 0;
 //***********************************************
 
 //Variable Section
@@ -37,6 +39,7 @@ Scene  scene;
 vec3 mousePosition;
 Obj3d *Home;
 Collider *Col1, *Col2;
+clock_t start;
 //***********************************************
 int main(int argc, char* argv[])
 {
@@ -76,6 +79,7 @@ int main(int argc, char* argv[])
 
 	LoadObjects();
 	LoadColliders();
+	start = clock();
 
 	glutMainLoop();
 
@@ -92,6 +96,17 @@ void OnRender()
 	glTranslatef(0, -1, -2);
 	float previousT = T;
 	T = glutGet(GLUT_ELAPSED_TIME);
+	clock_t pom = clock();
+	int t=(int)(double(pom - start) / 1000);
+	if (t!=tbef)
+	{
+		tbef = t;
+		if (t % 5 == 0)
+		{
+			scene.hud.energy--;
+			start = clock();
+		}
+	}
 	scene.hud.fps = 1.0f / (T - previousT) * 1000;
 	scene.guiDisplay();
 	gluLookAt(
@@ -217,6 +232,14 @@ void OnKeyDown(unsigned char key, int x, int y) {
 			glutWarpPointer(window_width / 2, window_height / 2);
 			captureMouse = true;
 		}
+	}
+	if (key == '-')
+	{
+		player->speed -= 0.01;
+	}
+	if (key == '+')
+	{
+		player->speed += 0.01;
 	}
 }
 
@@ -457,6 +480,41 @@ void LoadColliders()
 	scene.AddCollider(Col1);
 	Col1 = new Collider(vec4(-0.8, -7.1, -0.8, -8.0), vec3(1.f, 0.f, 0.f)); //HA
 	scene.AddCollider(Col1);
+
+	//nogi ³ó¿ka
+	SquareCollider(vec3(5.84, 0, 0.75), 0.11);
+	SquareCollider(vec3(5.84, 0, 2.9), 0.11);
+	SquareCollider(vec3(-0.25, 0, 0.75), 0.11);
+	SquareCollider(vec3(-0.25, 0, 2.9), 0.11);
+
+	//biurko œrodek
+	Col1 = new Collider(vec4(-5.7, -2.7, -3.86, -2.7), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(-3.86, -2.7, -3.86, -2.84), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(-3.86, -2.84, -5.7, -2.84), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+
+	//biurko szafka prawa
+	Col1 = new Collider(vec4(-5.7, -6.7, -3.86, -6.7), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(-3.86, -6.7, -3.86, -8), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+
+	//biurko szafka lewa
+	Col1 = new Collider(vec4(-5.7, 1.82, -3.86, 1.82), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(-3.86, 1.82, -3.86, 3), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+
+	//komoda
+	Col1 = new Collider(vec4(-2.5, 3, -2.5, 1.55), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(-2.5, 1.55, -0.5, 1.55), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(-0.5, 1.55, -0.5, 3), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+
 }
 void trashGen(float x_min, float x_max, float z_min, float z_max)
 {
@@ -585,4 +643,21 @@ float max(float x, float y)
 {
 	if (x >= y)return x;
 	else return y;
+}
+
+void SquareCollider(vec3 p, float r)
+{
+	vec3 p1 = vec3(p.x - r, 0, p.z + r); //A
+	vec3 p2 = vec3(p.x - r, 0, p.z - r); //B
+	vec3 p3 = vec3(p.x + r, 0, p.z - r); //C
+	vec3 p4 = vec3(p.x + r, 0, p.z + r); //D
+
+	Col1 = new Collider(vec4(p1.x, p1.z, p2.x, p2.z), vec3(1.f, 0.f, 0.f)); //AB
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(p2.x, p2.z, p3.x, p3.z), vec3(1.f, 0.f, 0.f)); //BC
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(p3.x, p3.z, p4.x, p4.z), vec3(1.f, 0.f, 0.f)); //CD
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(p4.x, p4.z, p1.x, p1.z), vec3(1.f, 0.f, 0.f)); //DA
+	scene.AddCollider(Col1);
 }

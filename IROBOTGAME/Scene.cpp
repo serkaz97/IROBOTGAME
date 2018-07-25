@@ -4,6 +4,7 @@
 
 Scene::Scene(void)
 {
+	hud.energy = 100;
 }
 
 
@@ -68,26 +69,38 @@ void Scene::guiDisplay()
 	
 	//WskaŸniki baterii
 	//1
-	glColor3f(0, 0.9, 0);
-	glVertex2f(3, 97);
-	glVertex2f(3, 93);
-	glVertex2f(5, 93);
-	glVertex2f(5, 97);
+	if (hud.energy > 0)
+	{
+		glColor3f(0, 0.9, 0);
+		glVertex2f(3, 97);
+		glVertex2f(3, 93);
+		glVertex2f(5, 93);
+		glVertex2f(5, 97);
+	}
 	//2
-	glVertex2f(6, 97);
-	glVertex2f(6, 93);
-	glVertex2f(8, 93);
-	glVertex2f(8, 97);
+	if (hud.energy > 25)
+	{
+		glVertex2f(6, 97);
+		glVertex2f(6, 93);
+		glVertex2f(8, 93);
+		glVertex2f(8, 97);
+	}
 	//3
-	glVertex2f(9, 97);
-	glVertex2f(9, 93);
-	glVertex2f(11, 93);
-	glVertex2f(11, 97);
+	if (hud.energy > 50)
+	{
+		glVertex2f(9, 97);
+		glVertex2f(9, 93);
+		glVertex2f(11, 93);
+		glVertex2f(11, 97);
+	}
 	//4
-	glVertex2f(12, 97);
-	glVertex2f(12, 93);
-	glVertex2f(14, 93);
-	glVertex2f(14, 97);
+	if (hud.energy > 75)
+	{
+		glVertex2f(12, 97);
+		glVertex2f(12, 93);
+		glVertex2f(14, 93);
+		glVertex2f(14, 97);
+	}
 
 	//bateria t³o
 	glColor3f(0, 0.1, 0);

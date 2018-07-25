@@ -6,8 +6,7 @@ public:
 	~Scene(void);
 	struct HUD
 	{
-		//float energy;
-		//float maxEnegry;
+		float energy;
 		float fps;
 	}hud;
 	void Render();
