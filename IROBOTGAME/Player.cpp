@@ -18,7 +18,7 @@ Player::Player()
 
 	velocity_horizontal = 0;
 	velocity_vertical = 0;
-
+	collide = true;
 	flyingMode = false;
 
 	Irobot = new Obj3d(vec3(pos.x, pos.y, pos.z), vec3(0.1, 0.1, 0.1), 0, 1.f);

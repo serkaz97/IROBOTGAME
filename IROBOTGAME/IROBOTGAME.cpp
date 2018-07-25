@@ -195,7 +195,10 @@ void OnKeyDown(unsigned char key, int x, int y) {
 	{
 		cout << "x: " << player->pos.x << " y: " << player->pos.y << " z: " << player->pos.z << endl;
 	}
-	
+	if (key == 'q')
+	{
+		player->collide = !player->collide;
+	}
 	if (key == 'm')
 	{
 		if (captureMouse)
@@ -252,7 +255,7 @@ void OnTimer(int id) {
 		glutWarpPointer(window_width / 2, window_height / 2);
 	}
 	checkCollisions();
-	gainPoint();
+	//gainPoint();
 	scene.Update();
 
 	glutTimerFunc(17, OnTimer, 0);
@@ -439,6 +442,16 @@ void LoadColliders()
 	scene.AddCollider(Col1);
 	Col1 = new Collider(vec4(12.5, 2.0, 12.5, 5.5), vec3(1.f, 0.f, 0.f)); //HA
 	scene.AddCollider(Col1);
+
+	//du¿a szafa + pó³ka z ksi¹¿kami
+	Col1 = new Collider(vec4(6, -6.0, 1.2, -6.0), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(1.2, -6.0, 1.2, -7.1), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(1.2, -7.1, -0.8, -7.1), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(-0.8, -7.1, -0.8, -8.0), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
 }
 void trashGen(float x_min, float x_max, float z_min, float z_max)
 {
@@ -460,7 +473,7 @@ void trashGen(float x_min, float x_max, float z_min, float z_max)
 }
 void checkCollisions()
 {
-	player->collide = true;
+	//player->collide = true;
 	if (player->collide == true)
 	{
 		clock_t begin = clock();
