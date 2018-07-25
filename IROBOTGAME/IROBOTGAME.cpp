@@ -20,6 +20,7 @@ void gainPoint();
 void trashGen(float x_min, float x_max, float y_min, float y_max);
 float min(float x, float y);
 float max(float x, float y);
+float T = 0;
 //***********************************************
 
 //Variable Section
@@ -85,10 +86,14 @@ int main(int argc, char* argv[])
 
 void OnRender()
 {
+	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glTranslatef(0, -1, -2);
+	float previousT = T;
+	T = glutGet(GLUT_ELAPSED_TIME);
+	cout << "FPS: " << 1.0f / (T - previousT) * 1000 << endl;
 
 	gluLookAt(
 		player->pos.x, player->pos.y, player->pos.z,
@@ -164,6 +169,7 @@ void OnRender()
 	glFlush();
 	glutSwapBuffers();
 	glutPostRedisplay();
+
 };
 
 void OnReshape(int width, int height) {
@@ -255,7 +261,7 @@ void OnTimer(int id) {
 		glutWarpPointer(window_width / 2, window_height / 2);
 	}
 	checkCollisions();
-	//gainPoint();
+	gainPoint();
 	scene.Update();
 
 	glutTimerFunc(17, OnTimer, 0);
@@ -356,7 +362,7 @@ void LoadObjects()
 	TextureManager::getInstance()->LoadTexture("BookS", "../Resources/Textures/Meble/BookS.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 
 	//dodanie œmieci do jednego pokoju
-	//trashGen(-5.15, 5.4, -7.4, 2.4);
+	trashGen(-5.15, 5.4, -7.4, 2.4);
 
 }
 void LoadColliders()
@@ -459,7 +465,7 @@ void trashGen(float x_min, float x_max, float z_min, float z_max)
 	float x_pos;
 	float z_pos;
 	int ix_max, iz_max;
-	for (int i = 0; i < 1000; i++)
+	for (int i = 0; i < 2000; i++)
 	{
 		ix_max = (x_max - x_min) * 1000;
 		iz_max = (z_max - z_min) * 1000;
@@ -473,7 +479,6 @@ void trashGen(float x_min, float x_max, float z_min, float z_max)
 }
 void checkCollisions()
 {
-	//player->collide = true;
 	if (player->collide == true)
 	{
 		clock_t begin = clock();

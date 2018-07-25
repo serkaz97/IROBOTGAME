@@ -23,7 +23,7 @@ void TrashGen::Render()
 	if (render == true)
 	{
 		float mat_ambient[] = { 0.0f, 0.0f, 0.0f };
-		float mat_diffuse[] = { 0, 0, 1 };
+		float mat_diffuse[] = { 1, 1, 1 };
 		float mat_specular[] = { 0.1f, 0.1f, 0.1f };
 
 		glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
