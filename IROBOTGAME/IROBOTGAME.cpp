@@ -386,6 +386,19 @@ void LoadObjects()
 	//dodanie œmieci do jednego pokoju
 	trashGen(-5.15, 5.4, -7.4, 2.4);
 
+	//Sypialnia
+	Mebel = new Obj3d(vec3(13, 0, 5.5), vec3(1, 1, 1), 0.f, 1);
+	Mebel->load("../Resources/Models/Meble/SzafaSyp.obj");
+	Mebel->textureName = "SzafaSyp";
+	scene.AddObject(Mebel);
+	TextureManager::getInstance()->LoadTexture("SzafaSyp", "../Resources/Textures/Meble/SzafaSypTex.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
+
+	Mebel = new Obj3d(vec3(20.75, 0, 5.1), vec3(1, 1, 1), 0.f, 1);
+	Mebel->load("../Resources/Models/Meble/LozkoSyp.obj");
+	Mebel->textureName = "LozkoSyp";
+	scene.AddObject(Mebel);
+	TextureManager::getInstance()->LoadTexture("LozkoSyp", "../Resources/Textures/Meble/LozkoSypTex.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
+
 }
 void LoadColliders()
 {
