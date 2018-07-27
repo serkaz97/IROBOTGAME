@@ -42,9 +42,6 @@
     <ClInclude Include="vec2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LineCollider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="vec4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -81,9 +78,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="vec2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LineCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="vec4.cpp">
