@@ -183,9 +183,6 @@ void OnRender()
 	
 
 	scene.Render();
-
-	if (unlock)
-		guiE();
 	glFlush();
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -247,13 +244,7 @@ void OnKeyDown(unsigned char key, int x, int y) {
 	{
 		player->speed += 0.01;
 	}
-	if (key == 'e')
-	{
-		if (unlock)
-		{
-
-		}
-	}
+	
 }
 
 void OnKeyUp(unsigned char key, int x, int y) {

@@ -47,7 +47,8 @@ void Scene::Render()
 
 void Scene::Update()
 {
-
+	for (unsigned int i = 0; i < sceneObjects.size(); i++)
+		sceneObjects[i]->Update();
 }
 
 void renderBitmapString(float x, float y, char* text) {
