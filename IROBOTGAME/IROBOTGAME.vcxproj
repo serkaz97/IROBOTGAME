@@ -150,7 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
-    <ClInclude Include="Drzwi.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="Obj3d.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
@@ -165,7 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="Drzwi.cpp" />
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="IROBOTGAME.cpp" />
     <ClCompile Include="Obj3d.cpp" />
     <ClCompile Include="Player.cpp" />

@@ -4,7 +4,6 @@
 //
 
 #pragma once
-//#include "Funkcje.h"
 #include  <time.h>
 
 #include <map>
@@ -18,20 +17,21 @@
 #include <GL/freeglut.h>
 #include "FreeImage.h"
 
-
 #include "vec3.h"
 #include "vec2.h"
 #include "vec4.h"
 
-
 #include "TextureManager.h"
 #include "SceneObject.h"
 #include "Obj3d.h"
-#include "Drzwi.h"
+#include "Door.h"
 #include "Collider.h"
 #include "TrashGen.h"
-#include "Scene.h"
+
 #include "Player.h"
+#include "Scene.h"
+
+
 
 
 

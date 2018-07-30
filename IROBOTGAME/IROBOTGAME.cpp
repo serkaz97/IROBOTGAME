@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+
 using namespace std;
 //Function Section
 //***********************************************
@@ -18,6 +19,7 @@ void checkCollisions();
 void gainPoint();
 void SquareCollider(vec3 p, float r);
 void trashGen(float x_min, float x_max, float y_min, float y_max);
+void guiE();
 float min(float x, float y);
 float max(float x, float y);
 float T = 0;
@@ -29,6 +31,7 @@ int tbef = 0;
 int window_width, window_height;
 bool captureMouse;
 bool keystate[256];
+bool unlock=false;
 int flag = 0;
 //***********************************************
 
@@ -180,6 +183,9 @@ void OnRender()
 	
 
 	scene.Render();
+
+	if (unlock)
+		guiE();
 	glFlush();
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -240,6 +246,13 @@ void OnKeyDown(unsigned char key, int x, int y) {
 	if (key == '+')
 	{
 		player->speed += 0.01;
+	}
+	if (key == 'e')
+	{
+		if (unlock)
+		{
+
+		}
 	}
 }
 
@@ -399,8 +412,7 @@ void LoadObjects()
 	scene.AddObject(Mebel);
 	TextureManager::getInstance()->LoadTexture("LozkoSyp", "../Resources/Textures/Meble/LozkoSypTex.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 
-	Drzwi *d;
-
+	Door *dor;
 }
 void LoadColliders()
 {
@@ -676,4 +688,41 @@ void SquareCollider(vec3 p, float r)
 	scene.AddCollider(Col1);
 	Col1 = new Collider(vec4(p4.x, p4.z, p1.x, p1.z), vec3(1.f, 0.f, 0.f)); //DA
 	scene.AddCollider(Col1);
+}
+
+void OpenDoorsCheck()
+{
+	/*unlock = false;
+	for (unsigned int i = 0; i < scene.door.size(); i++)
+	{
+		float distance = sqrt(((scene.door[i]->pos.x - player->pos.x)*(scene.door[i]->pos.x - player->pos.x)) +
+			((scene.door[i]->pos.z - player->pos.z)*(scene.door[i]->pos.z - player->pos.z)));
+		if (distance < player->radius * 3)
+		{
+			unlock = true;
+		}
+	}*/
+}
+
+void guiE()
+{
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glTranslatef(0, 0, -2);
+	gluOrtho2D(0, 100, 0, 100);
+	glDisable(GL_LIGHTING);
+	glDisable(GL_CULL_FACE);
+	glBegin(GL_QUADS);
+
+	glColor3f(0.5, 0.5, 0.5);
+	glVertex2f(45, 55);
+	glVertex2f(45, 45);
+	glVertex2f(55, 45);
+	glVertex2f(55, 55);
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_CULL_FACE);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
 }

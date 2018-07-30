@@ -54,7 +54,7 @@
     <ClInclude Include="TrashGen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Drzwi.h">
+    <ClInclude Include="Door.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -95,7 +95,7 @@
     <ClCompile Include="TrashGen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Drzwi.cpp">
+    <ClCompile Include="Door.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

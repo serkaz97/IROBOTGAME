@@ -2,6 +2,7 @@
 #include "Scene.h"
 
 
+
 Scene::Scene(void)
 {
 	hud.energy = 100;
@@ -25,6 +26,7 @@ void Scene::AddCollider(Collider* object)
 {
 	colliders.push_back(object);
 }
+
 void Scene::AddTrash(TrashGen* smiec)
 {
 	smieci.push_back(smiec);
@@ -45,8 +47,7 @@ void Scene::Render()
 
 void Scene::Update()
 {
-	for (unsigned int i = 0; i < sceneObjects.size(); i++)
-		sceneObjects[i]->Update();
+
 }
 
 void renderBitmapString(float x, float y, char* text) {
