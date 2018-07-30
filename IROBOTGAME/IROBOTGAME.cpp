@@ -399,6 +399,8 @@ void LoadObjects()
 	scene.AddObject(Mebel);
 	TextureManager::getInstance()->LoadTexture("LozkoSyp", "../Resources/Textures/Meble/LozkoSypTex.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 
+	Drzwi *d;
+
 }
 void LoadColliders()
 {

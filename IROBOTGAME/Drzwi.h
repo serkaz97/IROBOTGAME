@@ -1,14 +1,15 @@
 #pragma once
-class Obj3d :
+#pragma once
+class Drzwi :
 	public SceneObject
 {
 public:
-	Obj3d()
+	Drzwi()
 	{
 
 	}
-	Obj3d(vec3 pos, vec3 color, float angle, float scale);
-	~Obj3d();
+	Drzwi(vec3 pos, vec3 color, float angle, float scale);
+	~Drzwi();
 
 	bool load(std::string filepath);
 	float scale;
@@ -25,3 +26,4 @@ public:
 	std::vector<vec3> normals;
 	std::vector<vec3> uvs;
 };
+

@@ -1,9 +1,8 @@
 #include "stdafx.h"
-#include "Obj3d.h"
+#include "Drzwi.h"
 
 
-
-Obj3d::Obj3d(vec3 pos, vec3 color, float angle, float scale)
+Drzwi::Drzwi(vec3 pos, vec3 color, float angle, float scale)
 {
 	this->pos = pos;
 	this->color = color;
@@ -12,11 +11,11 @@ Obj3d::Obj3d(vec3 pos, vec3 color, float angle, float scale)
 }
 
 
-Obj3d::~Obj3d()
+Drzwi::~Drzwi()
 {
 }
 
-bool Obj3d::load(std::string filename)
+bool Drzwi::load(std::string filename)
 {
 
 	std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
@@ -87,7 +86,7 @@ bool Obj3d::load(std::string filename)
 		}
 	}
 
-	glNewList(id, GL_COMPILE);	
+	glNewList(id, GL_COMPILE);
 	glPushMatrix();
 	glBegin(GL_TRIANGLES);
 	glTranslatef(pos.x, pos.y, pos.z);
@@ -104,11 +103,11 @@ bool Obj3d::load(std::string filename)
 	glEndList();
 
 
-	
+
 	return true;
 }
 
-void Obj3d::Render()
+void Drzwi::Render()
 {
 	if (!textureName.empty())
 	{
@@ -127,14 +126,14 @@ void Obj3d::Render()
 	glTranslatef(pos.x, pos.y, pos.z);
 	glRotatef(angle, 0, 1, 0);
 	glScalef(scale, scale, scale);
-		glPushMatrix();
-			glCallList(id);
-		glPopMatrix();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
+	glPushMatrix();
+	glCallList(id);
+	glPopMatrix();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
 }
 
-void Obj3d::Update()
+void Drzwi::Update()
 {
 
 }

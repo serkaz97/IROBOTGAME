@@ -2,8 +2,8 @@
 class SceneObject
 {
 public:
-	SceneObject(void);
-	~SceneObject(void);
+	SceneObject();
+	~SceneObject();
 
 	vec3 pos;
 	vec3 ambient;

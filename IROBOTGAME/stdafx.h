@@ -27,6 +27,7 @@
 #include "TextureManager.h"
 #include "SceneObject.h"
 #include "Obj3d.h"
+#include "Drzwi.h"
 #include "Collider.h"
 #include "TrashGen.h"
 #include "Scene.h"
