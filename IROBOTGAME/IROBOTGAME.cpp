@@ -399,10 +399,6 @@ void LoadObjects()
 	scene.AddObject(Mebel);
 	TextureManager::getInstance()->LoadTexture("LozkoSyp", "../Resources/Textures/Meble/LozkoSypTex.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 
-	Door *door; 
-	door = new Door(vec3(20.75, 0, 5.1), vec3(1, 1, 1), 0.f, 1);
-	door->Obj3d::load("../Resources/Models/Door.obj");
-	scene.AddDoor(door);
 }
 void LoadColliders()
 {

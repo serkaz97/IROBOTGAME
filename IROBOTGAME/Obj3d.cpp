@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "Obj3d.h"
 
-Obj3d::Obj3d(){}
-
 Obj3d::Obj3d(vec3 pos, vec3 color, float angle, float scale)
 {
 	this->pos = pos;

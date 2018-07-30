@@ -29,10 +29,7 @@ void Scene::AddTrash(TrashGen* smiec)
 {
 	smieci.push_back(smiec);
 }
-void Scene::AddDoor(Door* door)
-{
-	doors.push_back(door);
-}
+
 
 void Scene::Render()
 {
