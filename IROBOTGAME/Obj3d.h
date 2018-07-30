@@ -3,6 +3,7 @@ class Obj3d :
 	public SceneObject
 {
 public:
+	Obj3d();
 	Obj3d(vec3 pos, vec3 color, float angle, float scale);
 	~Obj3d();
 

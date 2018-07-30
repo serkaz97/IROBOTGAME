@@ -399,6 +399,10 @@ void LoadObjects()
 	scene.AddObject(Mebel);
 	TextureManager::getInstance()->LoadTexture("LozkoSyp", "../Resources/Textures/Meble/LozkoSypTex.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 
+	Door *door; 
+	door = new Door(vec3(20.75, 0, 5.1), vec3(1, 1, 1), 0.f, 1);
+	door->Obj3d::load("../Resources/Models/Door.obj");
+	scene.AddDoor(door);
 }
 void LoadColliders()
 {
@@ -528,6 +532,7 @@ void LoadColliders()
 	Col1 = new Collider(vec4(-0.5, 1.55, -0.5, 3), vec3(1.f, 0.f, 0.f)); //HA
 	scene.AddCollider(Col1);
 
+	
 }
 void trashGen(float x_min, float x_max, float z_min, float z_max)
 {
