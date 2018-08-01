@@ -435,6 +435,44 @@ void LoadObjects()
 
 	TextureManager::getInstance()->LoadTexture("Kanapa", "../Resources/Textures/Meble/Kanapa.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 
+	Mebel = new Obj3d(vec3(19, 0, -10), vec3(1, 1, 1), 0.f, 1);
+	Mebel->load("../Resources/Models/Meble/Stol.obj");
+	Mebel->textureName = "Stol";
+	scene.AddObject(Mebel);
+	TextureManager::getInstance()->LoadTexture("Stol", "../Resources/Textures/Meble/Stol.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
+
+	Mebel = new Obj3d(vec3(18., 0, -8.75), vec3(1, 1, 1), 0.f, 1);
+	Mebel->load("../Resources/Models/Meble/Krzeslo.obj");
+	Mebel->textureName = "Krzeslo";
+	scene.AddObject(Mebel);
+
+	Mebel = new Obj3d(vec3(18., 0, -10), vec3(1, 1, 1), 0.f, 1);
+	Mebel->load("../Resources/Models/Meble/Krzeslo.obj");
+	Mebel->textureName = "Krzeslo";
+	scene.AddObject(Mebel);
+
+	Mebel = new Obj3d(vec3(18., 0, -11.25), vec3(1, 1, 1), 0.f, 1);
+	Mebel->load("../Resources/Models/Meble/Krzeslo.obj");
+	Mebel->textureName = "Krzeslo";
+	scene.AddObject(Mebel);
+
+	Mebel = new Obj3d(vec3(20., 0, -8.75), vec3(1, 1, 1), 180.f, 1);
+	Mebel->load("../Resources/Models/Meble/Krzeslo.obj");
+	Mebel->textureName = "Krzeslo";
+	scene.AddObject(Mebel);
+
+	Mebel = new Obj3d(vec3(20., 0, -10), vec3(1, 1, 1), 180.f, 1);
+	Mebel->load("../Resources/Models/Meble/Krzeslo.obj");
+	Mebel->textureName = "Krzeslo";
+	scene.AddObject(Mebel);
+
+	Mebel = new Obj3d(vec3(20., 0, -11.25), vec3(1, 1, 1), 180.f, 1);
+	Mebel->load("../Resources/Models/Meble/Krzeslo.obj");
+	Mebel->textureName = "Krzeslo";
+	scene.AddObject(Mebel);
+
+	TextureManager::getInstance()->LoadTexture("Krzeslo", "../Resources/Textures/Meble/Krzeslo.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
+
 	Door *Drzwi;
 	Drzwi = new Door(vec3(6.03, 0, -5.07), vec3(1, 1, 1), 0.f, 1);
 	Drzwi->Obj3d::load("../Resources/Models/Door.obj");
