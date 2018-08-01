@@ -31,6 +31,10 @@ void Scene::AddTrash(TrashGen* smiec)
 {
 	smieci.push_back(smiec);
 }
+void Scene::AddDoor(Door* door)
+{
+	doors.push_back(door);
+}
 
 
 void Scene::Render()
@@ -43,12 +47,16 @@ void Scene::Render()
 	{
 		smieci[i]->Render();
 	}
+	for (unsigned int i = 0; i < doors.size(); i++)
+		doors[i]->Render();
 }	
 
 void Scene::Update()
 {
 	for (unsigned int i = 0; i < sceneObjects.size(); i++)
 		sceneObjects[i]->Update();
+	for (unsigned int i = 0; i < doors.size(); i++)
+		doors[i]->Update();
 }
 
 void renderBitmapString(float x, float y, char* text) {
@@ -69,7 +77,7 @@ void Scene::guiDisplay()
 	glDisable(GL_LIGHTING);
 	glDisable(GL_CULL_FACE);
 	glBegin(GL_QUADS);
-	
+
 	//WskaŸniki baterii
 	//1
 	if (hud.energy > 0)
@@ -116,12 +124,26 @@ void Scene::guiDisplay()
 	glVertex2f(16, 94);
 	glVertex2f(17, 94);
 	glVertex2f(17, 96);
+
+	if (doorunlock == true)
+	{
+		glColor3f(0.8, 0.8, 0.8);
+		glVertex2f(45, 55);
+		glVertex2f(45, 45);
+		glVertex2f(55, 45);
+		glVertex2f(55, 55);
+	}
+
 	glEnd();
 	char text[50];
 	sprintf(text, "%d fps", (int)hud.fps);
 
 	glColor3f(1, 1, 1);
 	renderBitmapString(90, 95, text);
+
+
+
+
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_CULL_FACE);

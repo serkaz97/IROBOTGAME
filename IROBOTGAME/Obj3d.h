@@ -16,7 +16,6 @@ public:
 	void Render();
 	void Update();
 	vec4 getCords() { return vec4(0, 0, 0, 0); }
-	void CheckCollision() {};
 	GLuint id = glGenLists(1);
 	vec3 color;
 	std::string textureName;

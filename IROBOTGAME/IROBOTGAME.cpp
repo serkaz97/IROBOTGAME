@@ -17,9 +17,9 @@ void LoadObjects();
 void LoadColliders();
 void checkCollisions();
 void gainPoint();
+void OpenDoorsCheck();
 void SquareCollider(vec3 p, float r);
 void trashGen(float x_min, float x_max, float y_min, float y_max);
-void guiE();
 float min(float x, float y);
 float max(float x, float y);
 float T = 0;
@@ -181,7 +181,7 @@ void OnRender()
 		glLightf(GL_LIGHT3, GL_QUADRATIC_ATTENUATION, 0.0);
 	}
 	
-
+	OpenDoorsCheck();
 	scene.Render();
 	glFlush();
 	glutSwapBuffers();
@@ -244,6 +244,14 @@ void OnKeyDown(unsigned char key, int x, int y) {
 	{
 		player->speed += 0.01;
 	}
+	if (key == 'e')
+	{
+		if (scene.doorindex == -1)return;
+		if (scene.doors[scene.doorindex]->open == false)
+			scene.doors[scene.doorindex]->open = true;
+		else if (scene.doors[scene.doorindex]->open == true)
+			scene.doors[scene.doorindex]->open = false;
+	}
 	
 }
 
@@ -289,7 +297,6 @@ void OnTimer(int id) {
 	checkCollisions();
 	gainPoint();
 	scene.Update();
-
 	glutTimerFunc(17, OnTimer, 0);
 }
 static float i, j, k;
@@ -395,15 +402,63 @@ void LoadObjects()
 	Mebel->load("../Resources/Models/Meble/SzafaSyp.obj");
 	Mebel->textureName = "SzafaSyp";
 	scene.AddObject(Mebel);
-	TextureManager::getInstance()->LoadTexture("SzafaSyp", "../Resources/Textures/Meble/SzafaSypTex.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
+	TextureManager::getInstance()->LoadTexture("SzafaSyp", "../Resources/Textures/Meble/SzafaSyp.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 
-	Mebel = new Obj3d(vec3(20.75, 0, 5.1), vec3(1, 1, 1), 0.f, 1);
+	Mebel = new Obj3d(vec3(20.75, 0, 5.1), vec3(1, 1, 1), 0.f, 0.95);
 	Mebel->load("../Resources/Models/Meble/LozkoSyp.obj");
 	Mebel->textureName = "LozkoSyp";
 	scene.AddObject(Mebel);
 	TextureManager::getInstance()->LoadTexture("LozkoSyp", "../Resources/Textures/Meble/LozkoSypTex.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 
-	Door *dor;
+	Mebel = new Obj3d(vec3(17.1, 0, -2.9), vec3(1, 1, 1), 180.f, 1.0);
+	Mebel->load("../Resources/Models/Meble/KomodaD.obj");
+	Mebel->textureName = "KomodaD";
+	scene.AddObject(Mebel);
+	TextureManager::getInstance()->LoadTexture("KomodaD", "../Resources/Textures/Meble/KomodaD.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
+
+	Mebel = new Obj3d(vec3(14.5, 0, -3), vec3(1, 1, 1), -90.f, 1);
+	Mebel->load("../Resources/Models/Meble/Glosnik.obj");
+	Mebel->textureName = "Glosnik";
+	scene.AddObject(Mebel);
+
+	Mebel = new Obj3d(vec3(19.5, 0, -3), vec3(1, 1, 1), -90.f, 1);
+	Mebel->load("../Resources/Models/Meble/Glosnik.obj");
+	Mebel->textureName = "Glosnik";
+	scene.AddObject(Mebel);
+
+	TextureManager::getInstance()->LoadTexture("Glosnik", "../Resources/Textures/Meble/Glosnik.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
+
+	Mebel = new Obj3d(vec3(13, 0, -16.5), vec3(1, 1, 1), 0.f, 1);
+	Mebel->load("../Resources/Models/Meble/Kanapa.obj");
+	Mebel->textureName = "Kanapa";
+	scene.AddObject(Mebel);
+
+	TextureManager::getInstance()->LoadTexture("Kanapa", "../Resources/Textures/Meble/Kanapa.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
+
+	Door *Drzwi;
+	Drzwi = new Door(vec3(6.03, 0, -5.07), vec3(1, 1, 1), 0.f, 1);
+	Drzwi->Obj3d::load("../Resources/Models/Door.obj");
+	Drzwi->textureName = "Door";
+	scene.AddDoor(Drzwi);
+
+	Drzwi = new Door(vec3(12.9, 0, -3.9), vec3(1, 1, 1), 180.f, 1);
+	Drzwi->Obj3d::load("../Resources/Models/Door.obj");
+	Drzwi->textureName = "Door";
+	scene.AddDoor(Drzwi);
+
+	Drzwi = new Door(vec3(12.9, 0, 2.07), vec3(1, 1, 1), 180.f, 1);
+	Drzwi->Obj3d::load("../Resources/Models/Door.obj");
+	Drzwi->textureName = "Door";
+	scene.AddDoor(Drzwi);
+
+	Drzwi = new Door(vec3(8.93, 0, -10.6), vec3(1, 1, 1), 90.f, 1);
+	Drzwi->Obj3d::load("../Resources/Models/Door.obj");
+	Drzwi->textureName = "Door";
+	scene.AddDoor(Drzwi);
+
+	TextureManager::getInstance()->LoadTexture("Door", "../Resources/Textures/Door.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
+
+
 }
 void LoadColliders()
 {
@@ -683,37 +738,22 @@ void SquareCollider(vec3 p, float r)
 
 void OpenDoorsCheck()
 {
-	/*unlock = false;
-	for (unsigned int i = 0; i < scene.door.size(); i++)
+
+	for (unsigned int i = 0; i < scene.doors.size(); i++)
 	{
-		float distance = sqrt(((scene.door[i]->pos.x - player->pos.x)*(scene.door[i]->pos.x - player->pos.x)) +
-			((scene.door[i]->pos.z - player->pos.z)*(scene.door[i]->pos.z - player->pos.z)));
-		if (distance < player->radius * 3)
+		float distance = sqrt(((scene.doors[i]->pos.x - player->pos.x)*(scene.doors[i]->pos.x - player->pos.x)) +
+			((scene.doors[i]->pos.z - player->pos.z)*(scene.doors[i]->pos.z - player->pos.z)));
+		if (distance < player->radius * 4)
 		{
-			unlock = true;
+			scene.doorunlock = true;
+			scene.doorindex = i;
+			break;
 		}
-	}*/
+		else
+		{
+			scene.doorunlock = false;
+			scene.doorindex = -1;
+		}
+	}
 }
 
-void guiE()
-{
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	glTranslatef(0, 0, -2);
-	gluOrtho2D(0, 100, 0, 100);
-	glDisable(GL_LIGHTING);
-	glDisable(GL_CULL_FACE);
-	glBegin(GL_QUADS);
-
-	glColor3f(0.5, 0.5, 0.5);
-	glVertex2f(45, 55);
-	glVertex2f(45, 45);
-	glVertex2f(55, 45);
-	glVertex2f(55, 55);
-
-	glEnable(GL_LIGHTING);
-	glEnable(GL_CULL_FACE);
-	glPopMatrix();
-	glMatrixMode(GL_MODELVIEW);
-}

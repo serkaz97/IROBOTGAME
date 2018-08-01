@@ -1,10 +1,13 @@
 #pragma once
-class Door
+class Door: public Obj3d
 {
 public:
-	Door();
+	Door(vec3 pos, vec3 color, float angle, float scale);
 	~Door();
 
-	int key;
+	float angle0;
+	bool open;
+	bool unlock;
+	void Update();
 };
 
