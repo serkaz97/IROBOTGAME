@@ -38,7 +38,7 @@ Collider::~Collider()
 
 void Collider::Render()
 {
-	if (render == true)
+	if (render == false)
 	{
 		float mat_ambient[] = { 0.0f, 0.0f, 0.0f };
 		float mat_diffuse[] = { color.x, color.y, color.z };

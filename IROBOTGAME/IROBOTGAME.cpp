@@ -393,6 +393,7 @@ void LoadObjects()
 
 	//dodanie œmieci do jednego pokoju
 	trashGen(-5.15, 5.4, -7.4, 2.4);
+	trashGen(6.7, 12.2, -10.4, 5.2);
 
 	//Sypialnia
 	Mebel = new Obj3d(vec3(13, 0, 5.5), vec3(1, 1, 1), 0.f, 1);
@@ -438,32 +439,32 @@ void LoadObjects()
 	scene.AddObject(Mebel);
 	TextureManager::getInstance()->LoadTexture("Stol", "../Resources/Textures/Meble/Stol.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 
-	Mebel = new Obj3d(vec3(18., 0, -8.75), vec3(1, 1, 1), 0.f, 1);
+	Mebel = new Obj3d(vec3(17.85, 0, -8.75), vec3(1, 1, 1), 0.f, 1);
 	Mebel->load("../Resources/Models/Meble/Krzeslo.obj");
 	Mebel->textureName = "Krzeslo";
 	scene.AddObject(Mebel);
 
-	Mebel = new Obj3d(vec3(18., 0, -10), vec3(1, 1, 1), 0.f, 1);
+	Mebel = new Obj3d(vec3(17.85, 0, -10), vec3(1, 1, 1), 0.f, 1);
 	Mebel->load("../Resources/Models/Meble/Krzeslo.obj");
 	Mebel->textureName = "Krzeslo";
 	scene.AddObject(Mebel);
 
-	Mebel = new Obj3d(vec3(18., 0, -11.25), vec3(1, 1, 1), 0.f, 1);
+	Mebel = new Obj3d(vec3(17.85, 0, -11.25), vec3(1, 1, 1), 0.f, 1);
 	Mebel->load("../Resources/Models/Meble/Krzeslo.obj");
 	Mebel->textureName = "Krzeslo";
 	scene.AddObject(Mebel);
 
-	Mebel = new Obj3d(vec3(20., 0, -8.75), vec3(1, 1, 1), 180.f, 1);
+	Mebel = new Obj3d(vec3(20.15, 0, -8.75), vec3(1, 1, 1), 180.f, 1);
 	Mebel->load("../Resources/Models/Meble/Krzeslo.obj");
 	Mebel->textureName = "Krzeslo";
 	scene.AddObject(Mebel);
 
-	Mebel = new Obj3d(vec3(20., 0, -10), vec3(1, 1, 1), 180.f, 1);
+	Mebel = new Obj3d(vec3(20.15, 0, -10), vec3(1, 1, 1), 180.f, 1);
 	Mebel->load("../Resources/Models/Meble/Krzeslo.obj");
 	Mebel->textureName = "Krzeslo";
 	scene.AddObject(Mebel);
 
-	Mebel = new Obj3d(vec3(20., 0, -11.25), vec3(1, 1, 1), 180.f, 1);
+	Mebel = new Obj3d(vec3(20.15, 0, -11.25), vec3(1, 1, 1), 180.f, 1);
 	Mebel->load("../Resources/Models/Meble/Krzeslo.obj");
 	Mebel->textureName = "Krzeslo";
 	scene.AddObject(Mebel);
@@ -493,14 +494,24 @@ void LoadObjects()
 	Drzwi->textureName = "Door";
 	scene.AddDoor(Drzwi);
 
-	Drzwi = new Door(vec3(8.93, 0, -10.6), vec3(1, 1, 1), 90.f, 1);
-	Drzwi->Obj3d::load("../Resources/Models/Door.obj");
-	Drzwi->textureName = "Door";
-	scene.AddDoor(Drzwi);
+	Mebel = new Door(vec3(8.93, 0, -10.6), vec3(1, 1, 1), 90.f, 1);
+	Mebel->load("../Resources/Models/Door.obj");
+	Mebel->textureName = "Door";
+	scene.AddObject(Mebel);
 
 	TextureManager::getInstance()->LoadTexture("Door", "../Resources/Textures/Door.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 
+	Mebel = new Obj3d(vec3(6.5, 1, -9.5), vec3(1, 1, 1), 180.f, 1);
+	Mebel->load("../Resources/Models/Tablica.obj");
+	Mebel->textureName = "Tablica";
+	scene.AddObject(Mebel);
 
+	Mebel = new Obj3d(vec3(6.5, 3, -9.5), vec3(1, 1, 1), 180.f, 1);
+	Mebel->load("../Resources/Models/Tablica.obj");
+	Mebel->textureName = "Tablica";
+	scene.AddObject(Mebel);
+
+	TextureManager::getInstance()->LoadTexture("Tablica", "../Resources/Textures/Tablica.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 }
 void LoadColliders()
 {
@@ -644,8 +655,63 @@ void LoadColliders()
 	scene.AddCollider(Col1);
 	Col1 = new Collider(vec4(14.1, 3.5, 13.0, 3.5), vec3(1.f, 0.f, 0.f)); //HA
 	scene.AddCollider(Col1);
+	//nogi ³ó¿ka
+	SquareCollider(vec3(18.4, 0, 5.1), 0.25);
+	SquareCollider(vec3(20.72, 0, 5.1), 0.25);
+	SquareCollider(vec3(20.72, 0, 0.8), 0.25);
+	SquareCollider(vec3(18.4, 0, 0.8), 0.25);
+	//Salon
+	//Kolumny
+	SquareCollider(vec3(14.5, 0, -3), 0.3);
+	SquareCollider(vec3(19.5, 0, -3), 0.3);
 
-	
+	//szafka
+	Col1 = new Collider(vec4(15.52, -2.25, 15.52, -3.5), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(15.52, -3.5, 18.6, -3.5), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(18.6, -3.5, 18.6, -2.25), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+
+	//krzes³a
+	SquareCollider(vec3(17.9, 0, -8.75), 0.4);
+	SquareCollider(vec3(17.9, 0, -10.0), 0.4);
+	SquareCollider(vec3(17.9, 0, -11.25), 0.4);
+	SquareCollider(vec3(20.1, 0, -8.75), 0.4);
+	SquareCollider(vec3(20.1, 0, -10.0), 0.4);
+	SquareCollider(vec3(20.1, 0, -11.25), 0.4);
+
+	//stó³
+	SquareCollider(vec3(18, 0, -8), 0.05);
+	SquareCollider(vec3(20, 0, -8), 0.05);
+	SquareCollider(vec3(20, 0, -12), 0.05);
+	SquareCollider(vec3(18, 0, -12), 0.05);
+
+	//stolik do kawy
+	SquareCollider(vec3(16.66, 0, -14.2), 0.05);
+	SquareCollider(vec3(15.35, 0, -14.2), 0.05);
+	SquareCollider(vec3(15.35, 0, -11.3), 0.05);
+	SquareCollider(vec3(16.66, 0, -11.3), 0.05);
+
+	//kanapa
+	Col1 = new Collider(vec4(13, -10.82, 14.55, -10.82), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(14.55, -10.82, 14.55, -14.6), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(14.55, -14.6, 16.6, -14.6), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(16.6, -14.6, 16.6, -16.5), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+
+	//blokada ³azienki ***Teren nie dodany
+	Col1 = new Collider(vec4(9, -10.4, 11, -10.4), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+
+
+	//blokada kuchni ***Teren nie dodany
+	Col1 = new Collider(vec4(6.5, -8.25, 6.5, -10.5), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+
 }
 void trashGen(float x_min, float x_max, float z_min, float z_max)
 {
