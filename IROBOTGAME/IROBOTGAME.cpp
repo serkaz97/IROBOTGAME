@@ -85,8 +85,6 @@ int main(int argc, char* argv[])
 	start = clock();
 
 	glutMainLoop();
-
-	system("pause");
     return 0;
 }
 
@@ -115,8 +113,7 @@ void OnRender()
 	gluLookAt(
 		player->pos.x, player->pos.y, player->pos.z,
 		player->pos.x + player->dir.x, player->pos.y + player->dir.y, player->pos.z + player->dir.z,
-		0.0f, 1.0f, 0.0f
-	);
+		0.0f, 1.0f, 0.0f);
 
 	{
 		GLfloat l0_ambient[] = { 0.2f, 0.2f, 0.2f };
@@ -146,7 +143,7 @@ void OnRender()
 		glLightfv(GL_LIGHT1, GL_SPECULAR, l0_specular);
 		glLightfv(GL_LIGHT1, GL_POSITION, l0_position);
 		glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 0);
-		glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 2);
+		glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.2);
 		glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0);
 
 	}
@@ -473,6 +470,13 @@ void LoadObjects()
 
 	TextureManager::getInstance()->LoadTexture("Krzeslo", "../Resources/Textures/Meble/Krzeslo.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 
+	Mebel = new Obj3d(vec3(16., 0, -12.75), vec3(1, 1, 1), 180.f, 1);
+	Mebel->load("../Resources/Models/Meble/StolKaw.obj");
+	Mebel->textureName = "StolKaw";
+	scene.AddObject(Mebel);
+
+	TextureManager::getInstance()->LoadTexture("StolKaw", "../Resources/Textures/Meble/StolKaw.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
+
 	Door *Drzwi;
 	Drzwi = new Door(vec3(6.03, 0, -5.07), vec3(1, 1, 1), 0.f, 1);
 	Drzwi->Obj3d::load("../Resources/Models/Door.obj");
@@ -624,6 +628,21 @@ void LoadColliders()
 	Col1 = new Collider(vec4(-2.5, 1.55, -0.5, 1.55), vec3(1.f, 0.f, 0.f)); //HA
 	scene.AddCollider(Col1);
 	Col1 = new Collider(vec4(-0.5, 1.55, -0.5, 3), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+
+
+	//sypialnia meble
+	Col1 = new Collider(vec4(17.8, 5.52, 17.8, 4.63), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(17.8, 4.63, 16.15, 4.63), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(16.15, 4.63, 16.15, 4.25), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(16.15, 4.25, 15.0, 4.25), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(15.0, 4.25, 14.1, 3.5), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+	Col1 = new Collider(vec4(14.1, 3.5, 13.0, 3.5), vec3(1.f, 0.f, 0.f)); //HA
 	scene.AddCollider(Col1);
 
 	
