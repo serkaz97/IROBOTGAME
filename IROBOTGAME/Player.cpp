@@ -5,9 +5,9 @@
 Player::Player()
 {
 	
-	pos.x = 8.0f;
+	pos.x = 0.6f;
 	pos.y = 0.0f;
-	pos.z = 0.0f;
+	pos.z = -2.75f;
 	befcolx = pos.x;
 	befcolz = pos.z;
 	dir.x = 0.0f;

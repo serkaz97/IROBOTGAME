@@ -33,6 +33,7 @@ bool captureMouse;
 bool keystate[256];
 bool unlock=false;
 int flag = 0;
+bool room1=false, room2=false, room3=false;
 //***********************************************
 
 //Object Section
@@ -178,7 +179,7 @@ void OnRender()
 		glLightf(GL_LIGHT3, GL_QUADRATIC_ATTENUATION, 0.0);
 	}
 	
-	OpenDoorsCheck();
+	//OpenDoorsCheck();
 	scene.Render();
 	glFlush();
 	glutSwapBuffers();
@@ -241,14 +242,14 @@ void OnKeyDown(unsigned char key, int x, int y) {
 	{
 		player->speed += 0.01;
 	}
-	if (key == 'e')
+	/*if (key == 'e')
 	{
 		if (scene.doorindex == -1)return;
 		if (scene.doors[scene.doorindex]->open == false)
 			scene.doors[scene.doorindex]->open = true;
 		else if (scene.doors[scene.doorindex]->open == true)
 			scene.doors[scene.doorindex]->open = false;
-	}
+	}*/
 	
 }
 
@@ -263,6 +264,27 @@ void OnMouseMove(int x, int y)
 }
 
 void OnTimer(int id) {
+
+	if (player->points == 1600 && room1 == false)
+	{	
+			trashGen(6.7, 12.2, -10.4, 5.2);
+			room1 = true;
+			scene.doors[0]->open = true;
+	}
+	if (player->points == 3600 && room2 == false)
+	{
+			trashGen(13.5, 21.2, -16.9, -2.5);
+			room2 = true;
+			scene.doors[1]->open = true;
+	}
+	if (player->points == 4600 && room2 == false)
+	{
+		trashGen(13., 21.2, -1.6, 5.1);
+		room2 = true;
+		scene.doors[2]->open = true;
+	}
+
+
 
 	if (keystate['w']) {
 		player->velocity_vertical = 1;
@@ -296,7 +318,7 @@ void OnTimer(int id) {
 	scene.Update();
 	glutTimerFunc(17, OnTimer, 0);
 }
-static float i, j, k;
+//static float i, j, k;
 
 void LoadObjects()
 {
@@ -393,7 +415,7 @@ void LoadObjects()
 
 	//dodanie œmieci do jednego pokoju
 	trashGen(-5.15, 5.4, -7.4, 2.4);
-	trashGen(6.7, 12.2, -10.4, 5.2);
+
 
 	//Sypialnia
 	Mebel = new Obj3d(vec3(13, 0, 5.5), vec3(1, 1, 1), 0.f, 1);
@@ -735,8 +757,6 @@ void checkCollisions()
 {
 	if (player->collide == true)
 	{
-		clock_t begin = clock();
-
 		for (unsigned int i = 0; i < scene.colliders.size(); i++)
 		{
 			vec4 lineCords = scene.colliders[i]->getCords();
@@ -804,9 +824,6 @@ void checkCollisions()
 				}
 			}
 		}
-		clock_t end = clock();
-		//cout << "czas liczenia kolizji zaj¹³: " << double(end - begin) / CLOCKS_PER_SEC << endl;
-
 	}
 }
 void gainPoint()
@@ -861,7 +878,6 @@ void SquareCollider(vec3 p, float r)
 
 void OpenDoorsCheck()
 {
-
 	for (unsigned int i = 0; i < scene.doors.size(); i++)
 	{
 		float distance = sqrt(((scene.doors[i]->pos.x - player->pos.x)*(scene.doors[i]->pos.x - player->pos.x)) +
