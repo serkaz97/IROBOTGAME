@@ -23,6 +23,8 @@ Player::Player()
 
 	Irobot = new Obj3d(vec3(pos.x, pos.y, pos.z), vec3(0.1, 0.1, 0.1), 0, 1.f);
 	Irobot->load("../Resources/Models/Irobot.obj");
+	Irobot->textureName = "Irobot";
+	TextureManager::getInstance()->LoadTexture("Irobot", "../Resources/Textures/Irobot.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 }
 
 
@@ -32,13 +34,13 @@ Player::~Player()
 
 void Player::Render()
 {
-	Irobot->color = vec3(1, 0, 0);
+	Irobot->color = vec3(1, 1, 1);
 	Irobot->Render();
-	glPushMatrix();
+	/*glPushMatrix();
 	glTranslatef(pos.x, pos.y+0.1, pos.z);
 
 	glutSolidSphere(0.2, 16, 16);
-	glColor3f(1, 0, 0);
+	glColor3f(1, 1, 0);
 		glPushMatrix();
 		glTranslated(0.5, 0, 0);
 		glutSolidCube(0.1);
@@ -55,7 +57,7 @@ void Player::Render()
 		glTranslated(0, 0, -0.5);
 		glutSolidCube(0.1);
 		glPopMatrix();
-	glPopMatrix();
+	glPopMatrix();*/
 }
 
 void Player::Update()

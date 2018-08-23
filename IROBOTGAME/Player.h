@@ -9,7 +9,7 @@ public:
 	void Render();
 	void Update();
 	vec4 getCords() { return vec4(0, 0, 0, 0); }
-	float radius = 0.6;
+	float radius = 0.55;
 	vec3 dir;
 	unsigned int points;
 	float speed;

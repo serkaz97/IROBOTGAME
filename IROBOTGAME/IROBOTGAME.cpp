@@ -315,7 +315,12 @@ void OnTimer(int id) {
 		phi -= (mousePosition.y - window_height / 2) * 0.01;
 
 		player->dir.x = cos(theta) * cos(phi);
-		player->dir.y = /*-0.25;*/ sin(phi);
+		if (sin(phi) <= 0.4 &&  sin(phi) >= -0.25)
+			player->dir.y = sin(phi);
+		else if (sin(phi) > 0.4)
+			player->dir.y = 0.4;	
+		else if (sin(phi) < -.25)
+			player->dir.y = -.25;
 		player->dir.z = sin(theta) * cos(phi);
 
 		glutWarpPointer(window_width / 2, window_height / 2);
@@ -869,7 +874,7 @@ void gainPoint()
 				double time = (double(bonusmoment - first_point) / CLOCKS_PER_SEC);
 				if(time < 60)
 				{
-					scene.hud.energy *= 1.5;
+					scene.hud.energy += 20;
 				}
 			}
 			cout << player->points << endl;
