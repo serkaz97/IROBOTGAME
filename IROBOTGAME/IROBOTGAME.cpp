@@ -264,24 +264,31 @@ void OnMouseMove(int x, int y)
 }
 
 void OnTimer(int id) {
-
+	if (scene.hud.energy == 0)
+	{
+		player->speed = 0;
+		
+	}
 	if (player->points == 1600 && room1 == false)
 	{	
 			trashGen(6.7, 12.2, -10.4, 5.2);
 			room1 = true;
 			scene.doors[0]->open = true;
+			scene.colliders.pop_back();
 	}
 	if (player->points == 3600 && room2 == false)
 	{
 			trashGen(13.5, 21.2, -16.9, -2.5);
 			room2 = true;
 			scene.doors[1]->open = true;
+			scene.colliders.pop_back();
 	}
-	if (player->points == 4600 && room2 == false)
+	if (player->points == 4600 && room3 == false)
 	{
 		trashGen(13., 21.2, -1.6, 5.1);
-		room2 = true;
+		room3 = true;
 		scene.doors[2]->open = true;
+		scene.colliders.pop_back();
 	}
 
 
@@ -521,6 +528,11 @@ void LoadObjects()
 	Mebel->textureName = "Door";
 	scene.AddObject(Mebel);
 
+	Mebel = new Door(vec3(11.05, 0, 5.8), vec3(1, 1, 1), -90.f, 1);
+	Mebel->load("../Resources/Models/Door.obj");
+	Mebel->textureName = "Door";
+	scene.AddObject(Mebel);
+
 	TextureManager::getInstance()->LoadTexture("Door", "../Resources/Textures/Door.jpg", GL_LINEAR, GL_LINEAR_MIPMAP_NEAREST);
 
 	Mebel = new Obj3d(vec3(6.5, 1, -9.5), vec3(1, 1, 1), 180.f, 1);
@@ -733,7 +745,17 @@ void LoadColliders()
 	//blokada kuchni ***Teren nie dodany
 	Col1 = new Collider(vec4(6.5, -8.25, 6.5, -10.5), vec3(1.f, 0.f, 0.f)); //HA
 	scene.AddCollider(Col1);
+	//Drzwi Pokój 3
+	Col1 = new Collider(vec4(12.8, 2, 12.8, 0), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
 
+	//Drzwi Pokój 2
+	Col1 = new Collider(vec4(12.8, -4, 12.8, -6), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
+
+	//Drzwi Pokój 1
+	Col1 = new Collider(vec4(6, -3, 6, -5), vec3(1.f, 0.f, 0.f)); //HA
+	scene.AddCollider(Col1);
 }
 void trashGen(float x_min, float x_max, float z_min, float z_max)
 {
@@ -826,6 +848,8 @@ void checkCollisions()
 		}
 	}
 }
+
+clock_t first_point, bonusmoment;
 void gainPoint()
 {
 	int j = 0;
@@ -836,6 +860,18 @@ void gainPoint()
 		if (distance < player->radius)
 		{
 			player->points++;
+			scene.playerpoints = player->points;
+			if (player->points % 1000 == 1)
+				first_point = clock();
+			if (player->points % 1000 == 0 && player->points > 0)
+			{
+				bonusmoment = clock();
+				double time = (double(bonusmoment - first_point) / CLOCKS_PER_SEC);
+				if(time < 60)
+				{
+					scene.hud.energy *= 1.5;
+				}
+			}
 			cout << player->points << endl;
 			if (i != scene.smieci.end()||i!=scene.smieci.begin())
 			{

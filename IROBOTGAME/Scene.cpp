@@ -57,6 +57,15 @@ void Scene::Update()
 		sceneObjects[i]->Update();
 	for (unsigned int i = 0; i < doors.size(); i++)
 		doors[i]->Update();
+
+	if (hud.energy >= 100)
+	{
+		hud.energy = 100;
+	}
+	if (hud.energy <= 0)
+	{
+		hud.energy = 0;
+	}
 }
 
 void renderBitmapString(float x, float y, char* text) {
@@ -141,9 +150,16 @@ void Scene::guiDisplay()
 	glColor3f(1, 1, 1);
 	renderBitmapString(90, 95, text);
 
+	char text2[50];
+	sprintf(text2, "energy: %d ", (int)hud.energy);
 
+	char text3[30];
+	sprintf(text3, "points: %d: ", playerpoints);
 
-
+	glColor3f(1, 1, 1);
+	renderBitmapString(90, 95, text);
+	renderBitmapString(1, 89, text2);
+	renderBitmapString(1, 84, text3);
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_CULL_FACE);
