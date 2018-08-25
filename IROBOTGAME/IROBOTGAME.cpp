@@ -242,15 +242,7 @@ void OnKeyDown(unsigned char key, int x, int y) {
 	{
 		player->speed += 0.01;
 	}
-	/*if (key == 'e')
-	{
-		if (scene.doorindex == -1)return;
-		if (scene.doors[scene.doorindex]->open == false)
-			scene.doors[scene.doorindex]->open = true;
-		else if (scene.doors[scene.doorindex]->open == true)
-			scene.doors[scene.doorindex]->open = false;
-	}*/
-	
+
 }
 
 void OnKeyUp(unsigned char key, int x, int y) {
