@@ -76,6 +76,14 @@ void renderBitmapString(float x, float y, char* text) {
 	}
 }
 
+void renderBitmapString2(float x, float y, char* text) {
+	char *c;
+	glRasterPos3f(x, y, 0);
+	for (c = text; *c != '\0'; c++) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *c);
+	}
+}
+
 void Scene::guiDisplay()
 {
 	glMatrixMode(GL_PROJECTION);
@@ -134,14 +142,6 @@ void Scene::guiDisplay()
 	glVertex2f(17, 94);
 	glVertex2f(17, 96);
 
-	if (doorunlock == true)
-	{
-		glColor3f(0.8, 0.8, 0.8);
-		glVertex2f(45, 55);
-		glVertex2f(45, 45);
-		glVertex2f(55, 45);
-		glVertex2f(55, 55);
-	}
 
 	glEnd();
 	char text[50];
@@ -156,10 +156,19 @@ void Scene::guiDisplay()
 	char text3[30];
 	sprintf(text3, "points: %d: ", playerpoints);
 
+	char text4[50];
+	sprintf(text4, "GAME OVER\n Your Score: %d", playerpoints);
+
 	glColor3f(1, 1, 1);
 	renderBitmapString(90, 95, text);
 	renderBitmapString(1, 89, text2);
 	renderBitmapString(1, 84, text3);
+
+	if (hud.energy < 1)
+	{
+		glColor3f(1, 0, 0);
+		renderBitmapString2(35, 50, text4);
+	}
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_CULL_FACE);

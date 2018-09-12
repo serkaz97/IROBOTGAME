@@ -2,7 +2,8 @@
 //
 
 #include "stdafx.h"
-
+#include <Windows.h>
+#include <mmsystem.h>
 using namespace std;
 //Function Section
 //***********************************************
@@ -83,6 +84,7 @@ int main(int argc, char* argv[])
 
 	LoadObjects();
 	LoadColliders();
+	PlaySound(TEXT("../Resources/Sounds/sound2.wav"), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 	start = clock();
 
 	glutMainLoop();
